@@ -35,7 +35,7 @@ evens = strictMap double $! strictEnum 1 1000000
 main :: IO ()
 main = do
   let string = "Hello World"
-      !string' = evens `seq` string -- this forces the evaluation of string' regardless if it is used in IO
+      !string' = evens `seq` string -- this forces the evaluation of string' regardless of its use in I/O
   string' `seq` putStrLn string -- this forces the evaluation of string' before "Hello World" is printed
 
 
