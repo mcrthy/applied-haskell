@@ -1,4 +1,4 @@
--- EXERCISE: Define the 'force' helper function in terms of seq and deepseq
+-- EXERCISE: Define the 'force' helper function in terms of deepseq
 
 import Control.DeepSeq
 
