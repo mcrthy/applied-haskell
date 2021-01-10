@@ -35,7 +35,7 @@ average'' :: Monad m => ConduitM Int o m Double
 average'' =
   divide <$> foldlC add (RunningTotal 0 0)
   where
-    divide (RunningTotal total count) = fromIntegral total / fromIntegral count :: Double
+    divide (RunningTotal total count) = fromIntegral total / fromIntegral count
     add (RunningTotal total count) x = RunningTotal (total + x) (count + 1)
  
 main :: IO ()
