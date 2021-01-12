@@ -40,4 +40,9 @@ average :: RunningTotal -> Double
 average (RunningTotal s c) = fromIntegral s / fromIntegral c
 
 main :: IO ()
-main = quickBatch $ monoid $ RunningTotal 1 2
+main = do
+  let rt = RunningTotal 10 7
+  
+  print $ average rt
+  quickBatch $ monoid $ rt
+
