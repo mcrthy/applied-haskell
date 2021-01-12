@@ -2,5 +2,6 @@
 
 import Control.DeepSeq
 
+deepseq' :: NFData a => a -> b -> b
 deepseq' x y = (rnf x) `seq` y
 
