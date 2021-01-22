@@ -13,35 +13,38 @@ import Test.QuickCheck
 import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes
 
-data RunningTotal =
-  RunningTotal
+data RunningAverage =
+  RunningAverage
   {
     sum   :: !Int
   , count :: !Int
   } deriving (Eq, Show)
 
-instance Arbitrary RunningTotal where
-  arbitrary = do
-    s <- arbitrary
-    c <- arbitrary
-    return (RunningTotal s c)
+genRunningAverage :: Gen (RunningAverage)
+genRunningAverage = do
+  s <- arbitrary
+  c <- arbitrary
+  return $ RunningAverage s c
 
-instance Semigroup RunningTotal where
-  (<>) (RunningTotal s c) (RunningTotal s' c') =
-    RunningTotal (s + s') (c + c')
+instance Arbitrary RunningAverage where
+  arbitrary = genRunningAverage
 
-instance Monoid RunningTotal where
-  mempty = RunningTotal 0 0
+instance Semigroup RunningAverage where
+  (<>) (RunningAverage s c) (RunningAverage s' c') =
+    RunningAverage (s + s') (c + c')
 
-instance EqProp RunningTotal where
+instance Monoid RunningAverage where
+  mempty = RunningAverage 0 0
+
+instance EqProp RunningAverage where
   (=-=) = eq
 
-average :: RunningTotal -> Double
-average (RunningTotal s c) = fromIntegral s / fromIntegral c
+average :: RunningAverage -> Double
+average (RunningAverage s c) = fromIntegral s / fromIntegral c
 
 main :: IO ()
 main = do
-  let rt = RunningTotal 10 7
+  let rt = RunningAverage 10 7
   
   print $ average rt
   quickBatch $ monoid rt
