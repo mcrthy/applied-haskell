@@ -44,5 +44,5 @@ main = do
   let rt = RunningTotal 10 7
   
   print $ average rt
-  quickBatch $ monoid $ rt
+  quickBatch $ monoid rt
 
